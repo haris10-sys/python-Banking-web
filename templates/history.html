@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Transaction History | Python Bank</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            padding: 30px;
+
+            min-height: 100vh;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #0f172a,
+                #1e3a8a,
+                #3b82f6
+            );
+        }
+
+
+        /* MAIN CONTAINER */
+
+        .history-container {
+            width: 100%;
+            max-width: 1100px;
+
+            margin: 0 auto;
+        }
+
+
+        /* HEADER */
+
+        .page-header {
+            color: white;
+
+            margin-bottom: 25px;
+        }
+
+
+        .page-header h1 {
+            margin: 0;
+
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+
+        .page-header p {
+            margin-top: 8px;
+
+            color: #cbd5e1;
+
+            font-size: 15px;
+        }
+
+
+        /* ACCOUNT CARD */
+
+        .account-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.20);
+        }
+
+
+        .account-title {
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+        }
+
+
+        .account-name {
+
+            margin-top: 8px;
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            color: #0f172a;
+        }
+
+
+        .account-number {
+
+            margin-top: 5px;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        /* TRANSACTION CARD */
+
+        .transactions-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.20);
+        }
+
+
+        .transactions-header {
+
+            padding: 22px 25px;
+
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+
+        .transactions-header h2 {
+
+            margin: 0;
+
+            font-size: 22px;
+
+            color: #111827;
+        }
+
+
+        .transactions-header p {
+
+            margin-top: 6px;
+
+            margin-bottom: 0;
+
+            color: #6b7280;
+
+            font-size: 14px;
+        }
+
+
+        /* TABLE */
+
+        .table-wrapper {
+
+            width: 100%;
+
+            overflow-x: auto;
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 850px;
+        }
+
+
+        thead {
+
+            background: #f1f5f9;
+        }
+
+
+        th {
+
+            padding: 16px;
+
+            text-align: left;
+
+            font-size: 13px;
+
+            color: #475569;
+
+            text-transform: uppercase;
+
+            letter-spacing: .5px;
+
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+
+        td {
+
+            padding: 17px 16px;
+
+            font-size: 14px;
+
+            color: #334155;
+
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+
+        tbody tr:hover {
+
+            background: #f8fafc;
+        }
+
+
+        /* TRANSACTION TYPE */
+
+        .transaction-type {
+
+            font-weight: bold;
+
+            color: #1e3a8a;
+        }
+
+
+        /* AMOUNT */
+
+        .amount {
+
+            font-weight: bold;
+
+            white-space: nowrap;
+        }
+
+
+        /* STATUS */
+
+        .status {
+
+            display: inline-block;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        /* DETAILS */
+
+        .details {
+
+            color: #64748b;
+
+            max-width: 200px;
+
+            word-break: break-word;
+        }
+
+
+        /* NO TRANSACTIONS */
+
+        .no-transactions {
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            color: #64748b;
+        }
+
+
+        .no-transactions-icon {
+
+            font-size: 40px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .no-transactions h3 {
+
+            margin: 0;
+
+            color: #334155;
+        }
+
+
+        .no-transactions p {
+
+            margin-top: 8px;
+
+            font-size: 14px;
+        }
+
+
+        /* BACK BUTTON */
+
+        .back-button {
+
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding: 13px 25px;
+
+            background: white;
+
+            color: #1e3a8a;
+
+            text-decoration: none;
+
+            border-radius: 10px;
+
+            font-weight: bold;
+
+            transition: .2s;
+        }
+
+
+        .back-button:hover {
+
+            background: #e2e8f0;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+
+            .account-card {
+                padding: 20px;
+            }
+
+
+            .account-name {
+                font-size: 20px;
+            }
+
+
+            .transactions-header {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="history-container">
+
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+        <h1>
+            Transaction History
+        </h1>
+
+        <p>
+            View your complete account transaction history
+        </p>
+
+    </div>
+
+
+    <!-- ACCOUNT INFORMATION -->
+
+    <div class="account-card">
+
+        <div class="account-title">
+            Account
+        </div>
+
+        <div class="account-name">
+            {{ account["name"] }}
+        </div>
+
+        <div class="account-number">
+
+            Account Number:
+            {{ account["name"] }}
+
+        </div>
+
+    </div>
+
+
+    <!-- TRANSACTIONS -->
+
+    <div class="transactions-card">
+
+
+        <div class="transactions-header">
+
+            <h2>
+                All Transactions
+            </h2>
+
+            <p>
+                Complete record of your banking activity
+            </p>
+
+        </div>
+
+
+        {% if transactions %}
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Time
+                        </th>
+
+                        <th>
+                            Transaction
+                        </th>
+
+                        <th>
+                            Amount
+                        </th>
+
+                        <th>
+                            Balance
+                        </th>
+
+                        <th>
+                            Details
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                {% for transaction in transactions %}
+
+
+                    <tr>
+
+
+                        <!-- DATE -->
+
+                        <td>
+
+                            {{ transaction.get("date", "-") }}
+
+                        </td>
+
+
+                        <!-- TIME -->
+
+                        <td>
+
+                            {{ transaction.get("time", "-") }}
+
+                        </td>
+
+
+                        <!-- TYPE -->
+
+                        <td class="transaction-type">
+
+                            {{ transaction.get("type", "Transaction") }}
+
+                        </td>
+
+
+                        <!-- AMOUNT -->
+
+                        <td class="amount">
+
+                            ₹{{ "%.2f"|format(
+                                transaction.get("amount", 0)|float
+                            ) }}
+
+                        </td>
+
+
+                        <!-- BALANCE -->
+
+                        <td class="amount">
+
+                            {% if transaction.get("balance") is not none %}
+
+                                ₹{{ "%.2f"|format(
+                                    transaction.get("balance", 0)|float
+                                ) }}
+
+                            {% else %}
+
+                                -
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- DETAILS -->
+
+                        <td class="details">
+
+                            {{ transaction.get("details", "-") }}
+
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            <span class="status">
+
+                                {{ transaction.get("status", "Completed") }}
+
+                            </span>
+
+                        </td>
+
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- NO TRANSACTIONS -->
+
+        <div class="no-transactions">
+
+            <div class="no-transactions-icon">
+                📋
+            </div>
+
+            <h3>
+                No Transactions Yet
+            </h3>
+
+            <p>
+                Your transaction history will appear here.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+    <!-- BACK -->
+
+    <a
+        href="{{ url_for('home') }}"
+        class="back-button">
+
+        ← Back to Dashboard
+
+    </a>
+
+
+</div>
+
+
+</body>
+
+</html>

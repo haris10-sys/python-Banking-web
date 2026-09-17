@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Account Statement | Python Bank</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef6ff,
+                    #ffffff
+                );
+
+            padding: 30px 15px;
+
+            color: #172554;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 760px;
+            margin: auto;
+        }
+
+        /* HEADER */
+
+        .header {
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            color: #111827;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* ACCOUNT CARD */
+
+        .account-card {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0878f9,
+                    #1747c8
+                );
+
+            color: white;
+
+            padding: 24px;
+
+            border-radius: 18px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 12px 30px
+                rgba(8, 120, 249, 0.25);
+        }
+
+        .account-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.8;
+        }
+
+        .account-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 6px;
+        }
+
+        .account-number {
+            font-size: 13px;
+            margin-top: 8px;
+            opacity: 0.85;
+        }
+
+        /* CARD */
+
+        .statement-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0, 0, 0, 0.06);
+        }
+
+        .section-title {
+
+            font-size: 19px;
+
+            color: #111827;
+
+            margin-bottom: 16px;
+        }
+
+        /* OPTIONS */
+
+        .option-group {
+            margin-bottom: 28px;
+        }
+
+        .options {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 12px;
+        }
+
+        .option {
+
+            position: relative;
+        }
+
+        .option input {
+
+            position: absolute;
+
+            opacity: 0;
+        }
+
+        .option label {
+
+            display: block;
+
+            padding: 17px;
+
+            border: 2px solid #e5e7eb;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            background: #ffffff;
+        }
+
+        .option label:hover {
+
+            border-color: #0878f9;
+
+            background: #f5f9ff;
+        }
+
+        .option input:checked + label {
+
+            border-color: #0878f9;
+
+            background: #eff6ff;
+
+            color: #0878f9;
+        }
+
+        .option-title {
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            margin-bottom: 4px;
+        }
+
+        .option-description {
+
+            font-size: 11px;
+
+            color: #64748b;
+        }
+
+        /* CUSTOM DATE */
+
+        .custom-date {
+
+            display: none;
+
+            margin-top: 15px;
+
+            gap: 12px;
+        }
+
+        .custom-date.active {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .date-field label {
+
+            display: block;
+
+            font-size: 12px;
+
+            color: #64748b;
+
+            margin-bottom: 6px;
+        }
+
+        .date-field input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+        }
+
+        /* CONFIRM */
+
+        .continue-button {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #0878f9;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .continue-button:hover {
+
+            background: #0667d8;
+
+        }
+
+        /* BACK */
+
+        .back-button {
+
+            display: block;
+
+            width: 100%;
+
+            margin-top: 18px;
+
+            padding: 13px;
+
+            text-align: center;
+
+            border: 2px solid #0878f9;
+
+            border-radius: 12px;
+
+            color: #0878f9;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .back-button:hover {
+
+            background: #0878f9;
+
+            color: white;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px 10px;
+            }
+
+            .header h1 {
+                font-size: 25px;
+            }
+
+            .statement-card {
+                padding: 18px;
+            }
+
+            .options {
+                grid-template-columns: 1fr;
+            }
+
+            .custom-date.active {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            Account Statement
+        </h1>
+
+        <p>
+            Download your complete account statement
+        </p>
+
+    </div>
+
+
+    <!-- ACCOUNT -->
+
+    <div class="account-card">
+
+        <div class="account-label">
+            Account
+        </div>
+
+        <div class="account-name">
+            {{ user["name"] }}
+        </div>
+
+        <div class="account-number">
+            Account Number:
+            {{ session["account"] }}
+        </div>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <form method="POST"
+          action="{{ url_for('account_statement') }}">
+
+        <div class="statement-card">
+
+
+            <!-- DATE RANGE -->
+
+            <div class="option-group">
+
+                <h2 class="section-title">
+                    1. Select Date Range
+                </h2>
+
+
+                <div class="options">
+
+
+                    <div class="option">
+
+                        <input
+                            type="radio"
+                            id="current_month"
+                            name="date_range"
+                            value="current_month"
+                            checked
+                        >
+
+                        <label for="current_month">
+
+                            <div class="option-title">
+                                Current Month
+                            </div>
+
+                            <div class="option-description">
+                                Transactions from this month
+                            </div>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="option">
+
+                        <input
+                            type="radio"
+                            id="last_3_months"
+                            name="date_range"
+                            value="last_3_months"
+                        >
+
+                        <label for="last_3_months">
+
+                            <div class="option-title">
+                                Last 3 Months
+                            </div>
+
+                            <div class="option-description">
+                                Previous three months
+                            </div>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="option">
+
+                        <input
+                            type="radio"
+                            id="last_financial_year"
+                            name="date_range"
+                            value="last_financial_year"
+                        >
+
+                        <label for="last_financial_year">
+
+                            <div class="option-title">
+                                Last Financial Year
+                            </div>
+
+                            <div class="option-description">
+                                Previous financial year
+                            </div>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="option">
+
+                        <input
+                            type="radio"
+                            id="custom"
+                            name="date_range"
+                            value="custom"
+                        >
+
+                        <label for="custom">
+
+                            <div class="option-title">
+                                Custom Date Range
+                            </div>
+
+                            <div class="option-description">
+                                Choose your own dates
+                            </div>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CUSTOM DATES -->
+
+                <div class="custom-date"
+                     id="customDate">
+
+                    <div class="date-field">
+
+                        <label>
+                            From Date
+                        </label>
+
+                        <input
+                            type="date"
+                            name="custom_from"
+                        >
+
+                    </div>
+
+
+                    <div class="date-field">
+
+                        <label>
+                            To Date
+                        </label>
+
+                        <input
+                            type="date"
+                            name="custom_to"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FILE TYPE -->
+
+            <div class="option-group">
+
+                <h2 class="section-title">
+                    2. Select Statement Format
+                </h2>
+
+
+                <div class="options">
+
+
+                    <div class="option">
+
+                        <input
+                            type="radio"
+                            id="pdf"
+                            name="file_type"
+                            value="pdf"
+                            checked
+                        >
+
+                        <label for="pdf">
+
+                            <div class="option-title">
+                                PDF
+                            </div>
+
+                            <div class="option-description">
+                                Bank-style statement
+                            </div>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="option">
+
+                        <input
+                            type="radio"
+                            id="csv"
+                            name="file_type"
+                            value="csv"
+                        >
+
+                        <label for="csv">
+
+                            <div class="option-title">
+                                CSV
+                            </div>
+
+                            <div class="option-description">
+                                Spreadsheet format
+                            </div>
+
+                        </label>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- DELIVERY -->
+
+            <div class="option-group">
+
+                <h2 class="section-title">
+                    3. Select Delivery Mode
+                </h2>
+
+
+                <div class="options">
+
+
+                    <div class="option">
+
+                        <input
+                            type="radio"
+                            id="download"
+                            name="mode"
+                            value="download"
+                            checked
+                        >
+
+                        <label for="download">
+
+                            <div class="option-title">
+                                Download
+                            </div>
+
+                            <div class="option-description">
+                                Download statement to device
+                            </div>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="option">
+
+                        <input
+                            type="radio"
+                            id="email"
+                            name="mode"
+                            value="email"
+                        >
+
+                        <label for="email">
+
+                            <div class="option-title">
+                                Email
+                            </div>
+
+                            <div class="option-description">
+                                Send statement to registered email
+                            </div>
+
+                        </label>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTINUE -->
+
+            <button
+                type="submit"
+                class="continue-button">
+
+                Continue
+
+            </button>
+
+
+        </div>
+
+    </form>
+
+
+    <!-- BACK -->
+
+    <a
+        href="{{ url_for('home') }}"
+        class="back-button">
+
+        ← Back to Dashboard
+
+    </a>
+
+
+</div>
+
+
+<script>
+
+    const customRadio =
+        document.getElementById("custom");
+
+    const customDate =
+        document.getElementById("customDate");
+
+
+    document
+        .querySelectorAll('input[name="date_range"]')
+        .forEach(function(radio) {
+
+            radio.addEventListener("change", function() {
+
+                if (customRadio.checked) {
+
+                    customDate.classList.add("active");
+
+                } else {
+
+                    customDate.classList.remove("active");
+
+                }
+
+            });
+
+        });
+
+</script>
+
+
+</body>
+
+</html>

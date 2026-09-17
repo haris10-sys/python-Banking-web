@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Change PIN</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+/* CHANGE PIN */
+
+body {
+    background: linear-gradient(135deg,#0f172a,#1e3a8a,#3b82f6);
+}
+
+.change-pin-container {
+    width: 500px;
+    margin: 60px auto;
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+
+/* BLUE HEADER */
+
+.change-pin-header {
+    background: #0878f9;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.change-pin-header h1 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.change-pin-header p {
+    margin: 5px 0 0;
+    font-size: 15px;
+}
+
+
+/* WHITE CARD */
+
+.change-pin-card {
+    background: #fffdf5;
+    padding: 35px;
+    text-align: center;
+}
+
+.change-pin-card h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.change-subtitle {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+
+/* INPUTS */
+
+.change-pin-card input {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 15px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid #9fc9f5;
+    border-radius: 10px;
+
+    font-size: 16px;
+}
+
+.change-pin-card input:focus {
+    outline: none;
+    border: 2px solid #0878f9;
+}
+
+
+/* CHANGE PIN BUTTON */
+
+.change-pin-card button {
+    width: 100%;
+
+    padding: 15px;
+
+    background: #0878f9;
+    color: white;
+
+    border: 2px solid #0878f9;
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.change-pin-card button:hover {
+    background: #0668dc;
+}
+
+
+/* BACK BUTTON */
+
+.back-button {
+    display: block;
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    background: white;
+    color: #0878f9;
+
+    border: 2px solid #0878f9;
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+.back-button:hover {
+    background: #eef7ff;
+}
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="change-pin-container">
+
+        <!-- Blue Header -->
+
+        <div class="change-pin-header">
+
+            <h1>PYTHON BANK</h1>
+
+            <p>Change Your PIN</p>
+
+        </div>
+
+
+        <!-- Main Card -->
+
+        <div class="change-pin-card">
+
+            <h2>Change PIN</h2>
+
+            <p class="change-subtitle">
+                Enter your current PIN and create a new PIN
+            </p>
+
+
+            <form method="POST">
+
+                <input
+                    type="password"
+                    name="old_pin"
+                    placeholder="Old PIN"
+                    required
+                >
+
+
+                <input
+                    type="password"
+                    name="new_pin"
+                    placeholder="New PIN"
+                    required
+                >
+
+
+                <input
+                    type="password"
+                    name="confirm_pin"
+                    placeholder="Confirm New PIN"
+                    required
+                >
+
+
+                <button type="submit">
+                    Change PIN
+                </button>
+
+            </form>
+
+
+            <a href="{{ url_for('home') }}" class="back-button">
+                Back to Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

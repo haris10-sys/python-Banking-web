@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Email Statement - Python Bank</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e3a8a, #3b82f6);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .email-card {
+            width: 100%;
+            max-width: 550px;
+            background: white;
+            border-radius: 22px;
+            padding: 35px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+
+        .bank-icon {
+            font-size: 45px;
+            text-align: center;
+        }
+
+        .bank-title {
+            text-align: center;
+            color: #1e3a8a;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+
+        .statement-info {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 9px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #64748b;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .email-input {
+            height: 55px;
+            border-radius: 12px;
+            font-size: 16px;
+        }
+
+        .send-btn {
+            width: 100%;
+            height: 55px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .back-btn {
+            width: 100%;
+            height: 50px;
+            border-radius: 12px;
+            margin-top: 12px;
+        }
+
+        .security-text {
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="email-card">
+
+    <div class="bank-icon">
+        🏦
+    </div>
+
+    <h2 class="bank-title">
+        PYTHON BANK
+    </h2>
+
+    <p class="subtitle">
+        Email Account Statement
+    </p>
+
+
+    <!-- Statement Information -->
+
+    <div class="statement-info">
+
+        <div class="info-row">
+            <span class="info-label">
+                Account Holder
+            </span>
+
+            <span class="info-value">
+                {{ user["name"] }}
+            </span>
+        </div>
+
+
+        <div class="info-row">
+            <span class="info-label">
+                Account Number
+            </span>
+
+            <span class="info-value">
+                {{ session["account"] }}
+            </span>
+        </div>
+
+
+        <div class="info-row">
+            <span class="info-label">
+                Statement Period
+            </span>
+
+            <span class="info-value">
+                {{ date_range|replace("_", " ")|title }}
+            </span>
+        </div>
+
+
+        <div class="info-row">
+            <span class="info-label">
+                File Format
+            </span>
+
+            <span class="info-value">
+                {{ file_type|upper }}
+            </span>
+        </div>
+
+    </div>
+
+
+    <!-- Email Form -->
+
+    <form method="POST"
+          action="{{ url_for('send_statement_email') }}">
+
+        <label class="form-label">
+            Email Address
+        </label>
+
+        <input
+            type="email"
+            name="email"
+            class="form-control email-input"
+            placeholder="Enter your email address"
+            required
+        >
+
+
+        <input type="hidden"
+               name="file_type"
+               value="{{ file_type }}">
+
+        <input type="hidden"
+               name="date_range"
+               value="{{ date_range }}">
+
+        {% if custom_from %}
+        <input type="hidden"
+               name="custom_from"
+               value="{{ custom_from }}">
+        {% endif %}
+
+        {% if custom_to %}
+        <input type="hidden"
+               name="custom_to"
+               value="{{ custom_to }}">
+        {% endif %}
+
+
+        <button type="submit"
+                class="btn btn-primary send-btn">
+
+            📧 Send Statement
+
+        </button>
+
+    </form>
+
+
+    <a href="{{ url_for('account_statement') }}"
+       class="btn btn-outline-secondary back-btn">
+
+        ← Back to Account Statement
+
+    </a>
+
+
+    <p class="security-text">
+        🔒 Your statement will be securely sent to the email address provided.
+    </p>
+
+</div>
+
+</body>
+
+</html>

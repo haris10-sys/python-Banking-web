@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <!-- Important for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fast Cash | Python Bank</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+
+    <style>
+
+        /* =========================
+           GENERAL
+        ========================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            padding: 15px;
+
+            background: linear-gradient(
+                135deg,
+                #0f172a,
+                #1e3a8a,
+                #3b82f6
+            );
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        /* =========================
+           MAIN CARD
+        ========================= */
+
+        .fast-card {
+
+            width: 100%;
+
+            max-width: 650px;
+
+            border: none;
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 20px 45px rgba(0, 0, 0, .3);
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .bank-header {
+
+            background: linear-gradient(
+                90deg,
+                #0d6efd,
+                #4f46e5
+            );
+
+            color: white;
+
+            text-align: center;
+
+            padding: 28px 15px;
+        }
+
+
+        .bank-header h2 {
+
+            font-size: 26px;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+        }
+
+
+        .bank-header p {
+
+            margin: 0;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           CARD BODY
+        ========================= */
+
+        .card-body {
+
+            padding: 30px;
+
+            background: white;
+        }
+
+
+        /* =========================
+           ACCOUNT INFORMATION
+        ========================= */
+
+        .account-box {
+
+            background: #f8f9fa;
+
+            border-radius: 15px;
+
+            padding: 20px 10px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .account-box h6 {
+
+            color: #6c757d;
+
+            font-size: 13px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .account-box h5 {
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            margin: 0;
+
+            word-break: break-word;
+        }
+
+
+        /* =========================
+           SECTION TITLE
+        ========================= */
+
+        .section-title {
+
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
+
+
+        .section-title h4 {
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+        }
+
+
+        .section-title p {
+
+            color: #6c757d;
+
+            font-size: 14px;
+
+            margin: 0;
+        }
+
+
+        /* =========================
+           FAST CASH BUTTONS
+        ========================= */
+
+        .cash-btn {
+
+            width: 100%;
+
+            height: 65px;
+
+            border-radius: 14px;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            border: 2px solid #0d6efd;
+
+            background: white;
+
+            color: #0d6efd;
+
+            transition: .25s;
+        }
+
+
+        .cash-btn:hover {
+
+            background: #0d6efd;
+
+            color: white;
+
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 8px 20px rgba(13, 110, 253, .3);
+        }
+
+
+        /* =========================
+           BACK BUTTON
+        ========================= */
+
+        .home-btn {
+
+            width: 100%;
+
+            height: 52px;
+
+            margin-top: 30px;
+
+            border-radius: 12px;
+
+            font-weight: bold;
+
+            font-size: 17px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 576px) {
+
+            body {
+
+                padding: 8px;
+
+                align-items: flex-start;
+            }
+
+
+            .fast-card {
+
+                width: 100%;
+
+                margin-top: 10px;
+
+                border-radius: 16px;
+            }
+
+
+            /* HEADER */
+
+            .bank-header {
+
+                padding: 20px 10px;
+            }
+
+
+            .bank-header h2 {
+
+                font-size: 22px;
+            }
+
+
+            .bank-header p {
+
+                font-size: 13px;
+            }
+
+
+            /* BODY */
+
+            .card-body {
+
+                padding: 18px 12px;
+            }
+
+
+            /* ACCOUNT BOX */
+
+            .account-box {
+
+                padding: 15px 5px;
+
+                margin-bottom: 22px;
+            }
+
+
+            .account-box h6 {
+
+                font-size: 10px;
+            }
+
+
+            .account-box h5 {
+
+                font-size: 12px;
+            }
+
+
+            /* TITLE */
+
+            .section-title {
+
+                margin-bottom: 18px;
+            }
+
+
+            .section-title h4 {
+
+                font-size: 18px;
+            }
+
+
+            .section-title p {
+
+                font-size: 12px;
+            }
+
+
+            /* CASH BUTTONS */
+
+            .cash-btn {
+
+                height: 55px;
+
+                font-size: 17px;
+
+                border-radius: 11px;
+            }
+
+
+            /* BACK BUTTON */
+
+            .home-btn {
+
+                height: 50px;
+
+                margin-top: 22px;
+
+                font-size: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         MAIN CARD
+    ========================= -->
+
+    <div class="card fast-card">
+
+
+        <!-- =========================
+             HEADER
+        ========================= -->
+
+        <div class="bank-header">
+
+            <h2>
+                PYTHON BANK
+            </h2>
+
+            <p>
+                Fast Cash Withdrawal
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             CARD BODY
+        ========================= -->
+
+        <div class="card-body">
+
+
+            <!-- =========================
+                 ACCOUNT INFORMATION
+            ========================= -->
+
+            <div class="account-box">
+
+                <div class="row text-center">
+
+
+                    <!-- ACCOUNT NUMBER -->
+
+                    <div class="col-4">
+
+                        <h6>
+                            Account Number
+                        </h6>
+
+                        <h5>
+                            {{ session["account"] }}
+                        </h5>
+
+                    </div>
+
+
+                    <!-- ACCOUNT HOLDER -->
+
+                    <div class="col-4">
+
+                        <h6>
+                            Account Holder
+                        </h6>
+
+                        <h5>
+                            {{ user["name"] }}
+                        </h5>
+
+                    </div>
+
+
+                    <!-- ACCOUNT TYPE -->
+
+                    <div class="col-4">
+
+                        <h6>
+                            Account Type
+                        </h6>
+
+                        <h5>
+                            Savings
+                        </h5>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 TITLE
+            ========================= -->
+
+            <div class="section-title">
+
+                <h4>
+                    Select Withdrawal Amount
+                </h4>
+
+                <p>
+                    Choose an amount for quick withdrawal
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 FAST CASH BUTTONS
+            ========================= -->
+
+            <div class="row g-3">
+
+
+                <!-- ₹500 -->
+
+                <div class="col-6">
+
+                    <button
+                        class="cash-btn"
+                        onclick="withdraw(500)">
+
+                        ₹500
+
+                    </button>
+
+                </div>
+
+
+                <!-- ₹1,000 -->
+
+                <div class="col-6">
+
+                    <button
+                        class="cash-btn"
+                        onclick="withdraw(1000)">
+
+                        ₹1,000
+
+                    </button>
+
+                </div>
+
+
+                <!-- ₹2,000 -->
+
+                <div class="col-6">
+
+                    <button
+                        class="cash-btn"
+                        onclick="withdraw(2000)">
+
+                        ₹2,000
+
+                    </button>
+
+                </div>
+
+
+                <!-- ₹5,000 -->
+
+                <div class="col-6">
+
+                    <button
+                        class="cash-btn"
+                        onclick="withdraw(5000)">
+
+                        ₹5,000
+
+                    </button>
+
+                </div>
+
+
+                <!-- ₹10,000 -->
+
+                <div class="col-6">
+
+                    <button
+                        class="cash-btn"
+                        onclick="withdraw(10000)">
+
+                        ₹10,000
+
+                    </button>
+
+                </div>
+
+
+                <!-- ₹20,000 -->
+
+                <div class="col-6">
+
+                    <button
+                        class="cash-btn"
+                        onclick="withdraw(20000)">
+
+                        ₹20,000
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =========================
+                 BACK TO DASHBOARD
+            ========================= -->
+
+            <div class="d-grid">
+
+                <a
+                    href="/home"
+                    class="btn btn-outline-secondary home-btn">
+
+                    Back to Dashboard
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        function withdraw(amount) {
+
+            let balance = {{ user["balance"] }};
+
+
+            if (amount > balance) {
+
+                alert("Insufficient Balance");
+
+            }
+
+            else {
+
+                window.location.href =
+                    "/fastcash/" + amount;
+
+            }
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

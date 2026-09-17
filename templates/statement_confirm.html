@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Confirm Statement | Python Bank</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef6ff,
+            #ffffff
+        );
+
+    padding: 30px 15px;
+
+    color: #172554;
+}
+
+.container {
+
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.header {
+
+    margin-bottom: 25px;
+}
+
+.header h1 {
+
+    font-size: 29px;
+    color: #111827;
+}
+
+.header p {
+
+    color: #64748b;
+    margin-top: 6px;
+}
+
+.card {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,0.07);
+}
+
+.account {
+
+    background:
+        linear-gradient(
+            135deg,
+            #0878f9,
+            #1747c8
+        );
+
+    color: white;
+
+    padding: 20px;
+
+    border-radius: 15px;
+
+    margin-bottom: 22px;
+}
+
+.account small {
+
+    opacity: .8;
+}
+
+.account h2 {
+
+    margin-top: 5px;
+}
+
+.row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 17px 0;
+
+    border-bottom: 1px solid #edf0f5;
+}
+
+.row:last-child {
+
+    border-bottom: none;
+}
+
+.label {
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+.value {
+
+    font-weight: bold;
+
+    color: #111827;
+
+    text-transform: capitalize;
+}
+
+.confirm-button {
+
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #0878f9;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.cancel-button {
+
+    display: block;
+
+    width: 100%;
+
+    text-align: center;
+
+    margin-top: 12px;
+
+    padding: 13px;
+
+    border: 2px solid #0878f9;
+
+    border-radius: 12px;
+
+    color: #0878f9;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+@media(max-width:600px) {
+
+    body {
+        padding: 20px 10px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .row {
+        gap: 15px;
+    }
+
+    .value {
+        text-align: right;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<div class="header">
+
+    <h1>
+        Confirm Statement
+    </h1>
+
+    <p>
+        Review your statement details before continuing.
+    </p>
+
+</div>
+
+
+<div class="card">
+
+
+    <div class="account">
+
+        <small>
+            ACCOUNT
+        </small>
+
+        <h2>
+            Python Bank
+        </h2>
+
+        <p>
+            {{ session["account"] }}
+        </p>
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="label">
+            Date Range
+        </div>
+
+        <div class="value">
+
+            {% if date_range == "current_month" %}
+                Current Month
+
+            {% elif date_range == "last_3_months" %}
+                Last 3 Months
+
+            {% elif date_range == "last_financial_year" %}
+                Last Financial Year
+
+            {% elif date_range == "custom" %}
+                {{ custom_from }} → {{ custom_to }}
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="label">
+            Statement Format
+        </div>
+
+        <div class="value">
+
+            {{ file_type|upper }}
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="label">
+            Delivery Mode
+        </div>
+
+        <div class="value">
+
+            {{ mode|capitalize }}
+
+        </div>
+
+    </div>
+
+
+    <form
+        method="POST"
+        action="{{ url_for('generate_statement') }}"
+    >
+
+        <input
+            type="hidden"
+            name="date_range"
+            value="{{ date_range }}"
+        >
+
+        <input
+            type="hidden"
+            name="file_type"
+            value="{{ file_type }}"
+        >
+
+        <input
+            type="hidden"
+            name="mode"
+            value="{{ mode }}"
+        >
+
+        <input
+            type="hidden"
+            name="custom_from"
+            value="{{ custom_from }}"
+        >
+
+        <input
+            type="hidden"
+            name="custom_to"
+            value="{{ custom_to }}"
+        >
+
+
+        <button
+            type="submit"
+            class="confirm-button"
+        >
+
+            ✓ Confirm & Generate Statement
+
+        </button>
+
+    </form>
+
+
+    <a
+        href="{{ url_for('account_statement') }}"
+        class="cancel-button"
+    >
+
+        ← Change Selection
+
+    </a>
+
+
+</div>
+
+
+</div>
+
+</body>
+
+</html>
