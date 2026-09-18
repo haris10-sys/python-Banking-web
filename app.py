@@ -38,7 +38,14 @@ if os.path.exists("accounts.json"):
     with open("accounts.json", "r") as file:
         accounts = json.load(file)
 else:
-    accounts = {}
+    accounts = {
+        "1001": {
+            "name": "Demo User",
+            "pin": "1234",
+            "balance": 10000,
+            "transactions": []
+        }
+    }
 
 # =========================================================
 # SAVE ACCOUNTS
