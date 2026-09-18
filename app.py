@@ -34,9 +34,11 @@ app.secret_key = os.environ.get("FLASK_SECRET_KEY")
 # LOAD ACCOUNTS
 # =========================================================
 
-with open("accounts.json", "r") as file:
-    accounts = json.load(file)
-
+if os.path.exists("accounts.json"):
+    with open("accounts.json", "r") as file:
+        accounts = json.load(file)
+else:
+    accounts = {}
 
 # =========================================================
 # SAVE ACCOUNTS
