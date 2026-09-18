@@ -13,14 +13,16 @@ import csv
 import io
 import smtplib
 import base64
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from email.message import EmailMessage
 
 from datetime import datetime, date
 
 
-EMAIL_ADDRESS = "harishaikh2004@gmail.com"
-EMAIL_PASSWORD = "haris2004"
 
 app = Flask(__name__)
 app.secret_key = "my_secret_key"
