@@ -250,11 +250,12 @@ def login():
 
             return redirect(url_for("home"))
 
-        return "❌ Invalid Account Number or PIN"
+        return render_template(
+            "login.html",
+            error="Invalid Account Number or PIN"
+        )
 
     return render_template("login.html")
-
-
 # =========================================================
 # BALANCE
 # =========================================================

@@ -84,5 +84,22 @@
 
     </div>
 
+    {% if error %}
+<div class="error-popup" id="errorPopup">
+    <div class="error-popup-content">
+        <div class="error-icon">❌</div>
+        <h2>Login Failed</h2>
+        <p>{{ error }}</p>
+        <button onclick="closePopup()">Try Again</button>
+    </div>
+</div>
+
+<script>
+    function closePopup() {
+        document.getElementById("errorPopup").style.display = "none";
+    }
+</script>
+{% endif %}
+
 </body>
 </html>
