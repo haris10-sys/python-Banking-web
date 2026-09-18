@@ -14,6 +14,7 @@ import io
 import smtplib
 import base64
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -25,7 +26,8 @@ from datetime import datetime, date
 
 
 app = Flask(__name__)
-app.secret_key = "my_secret_key"
+
+app.secret_key = os.environ.get("FLASK_SECRET_KEY")
 
 
 # =========================================================
